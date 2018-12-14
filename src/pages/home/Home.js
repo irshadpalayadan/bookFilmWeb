@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import NavbarLogout from './navbar_logout';
 import NavbarLogin from './navbar_login';
+import Footer from './footer';
+import Signin from './signin';
+
+
 
 class Home extends Component {
 
@@ -16,6 +20,10 @@ class Home extends Component {
         return(
             <div>
                { this.state.isUserActive ? <NavbarLogin/> : <NavbarLogout/> }
+               <div className="container" style={{paddingTop: '50px'}}>
+                {  !this.state.isUserActive && <Signin/>  }
+                </div>
+               <Footer/>
             </div>
         );
     }
