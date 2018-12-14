@@ -8,7 +8,6 @@ import './css/signin.css'
 class Signin extends Component {
     render() {
         return(
-            <div className='SigninBoxOuter'>
                 <div className='SigninBox'>
                     <form className='SigninForm'>
                         {/*
@@ -36,7 +35,6 @@ class Signin extends Component {
                         <Button > Login </Button>
                     </form>
                 </div>
-            </div>
         );
     }
 
