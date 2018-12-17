@@ -13,7 +13,7 @@ class Signin extends Component {
         super();
         this.state = {
             username: '',
-            password: "",
+            password: '',
         }
     }
 
@@ -23,23 +23,23 @@ class Signin extends Component {
     }
 
 
-    _submitLogin = () => {
+    _submitSignin = () => {
         loginService.login(this.state.username, md5(this.state.password));
     }
 
 
     render() {
         return(
-                <div className='SigninBox'>
-                    <form className='SigninForm'>
+                <div className='SignInOutBox'>
+                    <form className='SignInOutForm'>
                         {/*
                             TODO : create logo image and logo name
                             <Logo />
                         */}
-                        <span className='SigninTitle'>Login</span>
-                        <div className="userblock" data-validate="Username is reauired">
-						    <span className="userBlockLabel">Username</span>
-						    <input className="userBlockInput" type="text" name="username" value={this.state.username} onChange = {this._onValueChange}  placeholder="Type your username"></input>
+                        <span className='SignInOutTitle'>Login</span>
+                        <div className="textBlock" data-validate="Username is reauired">
+						    <span className="textBlockLabel">Username</span>
+						    <input className="textBlockInput" type="text" name="username" value={this.state.username} onChange = {this._onValueChange}  placeholder="Type your username"></input>
                             <Glyphicon glyph="user" className="glyph"/>
                         </div>
                         <div className="passwordBlock" data-validate="Password is required">
@@ -54,7 +54,85 @@ class Signin extends Component {
                             */}
 						    <span>Forgot password? </span>
 					    </div>
-                        <Button onClick={this._submitLogin}> Login </Button>
+                        <Button onClick={this._submitSignin}> Login </Button>
+                    </form>
+                </div>
+        );
+    }
+
+}
+
+
+
+
+class Signup extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            username: '',
+            email: '',
+            phno:'',
+            password:'',
+            password2:'',
+        }
+    }
+
+
+    _onValueChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+
+    _submitSignup = () => {
+        loginService.signup(this.state.username, this.state.email, this.state.phno, md5(this.state.password));
+    }
+
+
+    render() {
+        return(
+                <div className='SignInOutBox'>
+                    <form className='SignInOutForm'>
+                        {/*
+                            TODO : create logo image and logo name
+                            <Logo />
+                        */}
+                        <span className='SignInOutTitle'>SignUp</span>
+                        <div className="textBlock" data-validate="Username is reauired">
+						    <span className="textBlockLabel">Username</span>
+						    <input className="textBlockInput" type="text" name="username" value={this.state.username} onChange = {this._onValueChange}  placeholder="Type your username"></input>
+                            <Glyphicon glyph="user" className="glyph"/>
+                        </div>
+                        <div className="textBlock" data-validate="E-mail is reauired">
+						    <span className="textBlockLabel">E-mail</span>
+						    <input className="textBlockInput" type="text" name="email" value={this.state.email} onChange = {this._onValueChange}  placeholder="Type your e-mail"></input>
+                            <Glyphicon glyph="envelope" className="glyph"/>
+                        </div>
+                        <div className="textBlock" data-validate="Phone Number is reauired">
+						    <span className="textBlockLabel">Phone Number</span>
+						    <input className="textBlockInput" type="text" name="phno" value={this.state.phno} onChange = {this._onValueChange}  placeholder="Type your Phone number"></input>
+                            <Glyphicon glyph="phone" className="glyph"/>
+                        </div>
+                        <div className="passwordBlock" data-validate="Password is required">
+						    <span className="passBlockLabel">Password</span>
+						    <input className="passBlockInput" type="password" name="password" value={this.state.password} onChange = {this._onValueChange} placeholder="Type your password"></input>
+                            <Glyphicon glyph="lock" className="glyph"/>
+					    </div>
+                        <div className="passwordBlock" data-validate="Password is required">
+						    <span className="passBlockLabel">Re-Enter Password</span>
+						    <input className="passBlockInput" type="password" name="password2" value={this.state.password2} onChange = {this._onValueChange} placeholder="Re-Enter your password"></input>
+                            <Glyphicon glyph="lock" className="glyph"/>
+					    </div>
+                        <Button onClick={this._submitSignup}> Signup </Button>
+
+                        
+                        <div className="haveAnAccount">
+                            {/*
+                                TODO : create a router to the login page
+                                <a href="#">Forgot password? </a>
+                            */}
+						    <span>Have an account? </span>
+					    </div>
                     </form>
                 </div>
         );

@@ -2,13 +2,13 @@
     float: right;
     border: 1px solid black;
     margin: 50px 10px;
-    padding: 50px 10px;
+    padding: 0px 10px 50px 10px;
     box-shadow: 5px 10px 30px #888888;
 }
 
 
 
-.SigninBox{
+.SignInOutBox{
     width: 500px;
     background: #fff;
     border-radius: 10px;
@@ -21,11 +21,11 @@
 }
 
 
-.SigninForm{
+.SignInOutForm{
     width:100%;
 }
 
-.SigninTitle{
+.SignInOutTitle{
     display: block;
     font-family: Poppins-Bold;
     font-size: 39px;
@@ -34,15 +34,14 @@
     text-align: center;
 }
 
-.userblock{
+.textBlock{
     position: relative;
     width: 100%;
-    position: relative;
     border-bottom: 2px solid #d9d9d9;
     margin-bottom: 23px;
 }
 
-.userBlockLabel {
+.textBlockLabel {
     font-family: Poppins-Regular;
     font-size: 14px;
     color: #333333;
@@ -50,7 +49,7 @@
     padding-left: 7px;
 }
 
-.userBlockInput{
+.textBlockInput{
     font-family: Poppins-Medium;
     font-size: 16px;
     color: #333333;
@@ -77,10 +76,10 @@
 
 
 .passwordBlock{
-    position: relative;
     width: 100%;
     position: relative;
     border-bottom: 2px solid #d9d9d9;
+    margin-bottom: 23px;
 }
 
 
@@ -115,4 +114,11 @@
 
 .loginbutton{
     padding: 5px 40px;
+}
+
+.haveAnAccount{
+    position: relative;
+    top: 20px;
+    display: block;
+    text-align: center;
 }
