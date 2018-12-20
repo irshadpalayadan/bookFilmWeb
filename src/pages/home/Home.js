@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavbarLogout from './navbar_logout';
 import NavbarLogin from './navbar_login';
 import Footer from './footer';
-import Signinout from './SignInOut';
+import SignInOut from './SignInOut';
 
 
 
@@ -21,7 +21,7 @@ class Home extends Component {
             <div>
                { this.state.isUserActive ? <NavbarLogin/> : <NavbarLogout/> }
                <div className="container" style={{paddingTop: '50px', width: '100%'}}>
-                {  !this.state.isUserActive && <Signinout/>  }
+                {  !this.state.isUserActive && <SignInOut/>  }
                 </div>
                <Footer/>
             </div>

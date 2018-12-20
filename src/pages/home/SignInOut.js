@@ -29,6 +29,7 @@ class Signin extends Component {
 
 
     render() {
+        var _sideBoxStateHandler = this.props.sideBoxStateHandler;
         return(
                 <div className='SignInOutBox'>
                     <form className='SignInOutForm'>
@@ -49,12 +50,19 @@ class Signin extends Component {
 					    </div>
                         <div className="forgotPassword">
                             {/*
-                                TODO : create a router to the forgot page
+                                TODO : handle forgot password
                                 <a href="#">Forgot password? </a>
                             */}
-						    <span>Forgot password? </span>
+						    <a >Forgot password? </a>
 					    </div>
                         <Button onClick={this._submitSignin}> Login </Button>
+                        <div className="haveAnAccount">
+                            {/*
+                                TODO : create a router to the login page
+                                <a href="#">New User? </a>
+                            */}
+						    <a onClick={ () => _sideBoxStateHandler('signup') } > New User? </a>
+					    </div>
                     </form>
                 </div>
         );
@@ -90,6 +98,7 @@ class Signup extends Component {
 
 
     render() {
+        var _sideBoxStateHandler = this.props.sideBoxStateHandler;
         return(
                 <div className='SignInOutBox'>
                     <form className='SignInOutForm'>
@@ -131,7 +140,7 @@ class Signup extends Component {
                                 TODO : create a router to the login page
                                 <a href="#">Forgot password? </a>
                             */}
-						    <span>Have an account? </span>
+						    <a onClick={ () => _sideBoxStateHandler('signin') } >Have an account? </a>
 					    </div>
                     </form>
                 </div>
@@ -143,11 +152,26 @@ class Signup extends Component {
 
 
 class SignInOutDash extends Component{
+    
+    constructor() {
+        super();
+        this.state = {
+            rightSideBox: 'signin'
+        }
+    }
+
+    _updateSideBoxState = ( boxName ) => {
+        this.setState({rightSideBox: boxName});
+    }
+
+
     render() {
         return(
             <div>
                 <div className='loginSideBox'>
-                    <Signin/>
+                { this.state.rightSideBox === 'signin' && <Signin sideBoxStateHandler={this._updateSideBoxState}/> }
+                { this.state.rightSideBox === 'signup' && <Signup sideBoxStateHandler={this._updateSideBoxState}/> }
+
                 </div>
             </div>
             
