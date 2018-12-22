@@ -16,12 +16,18 @@ class Home extends Component {
         }
     }
 
+    _userLogged( state ) {
+        if(state.signin === true) {
+            this.setState({isUserActive : true})
+        }
+    }
+
     render() {
         return(
             <div>
                { this.state.isUserActive ? <NavbarLogin/> : <NavbarLogout/> }
                <div className="container" style={{paddingTop: '50px', width: '100%'}}>
-                {  !this.state.isUserActive && <SignInOut/>  }
+                {  !this.state.isUserActive && <SignInOut loginHandler={this._userLogged.bind(this)}/>  }
                 </div>
                <Footer/>
             </div>

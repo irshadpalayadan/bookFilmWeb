@@ -122,3 +122,12 @@
     display: block;
     text-align: center;
 }
+
+.anchorLikeSpan{
+    cursor:pointer;
+    color: #337ab7;
+}
+
+.anchorLikeSpan:hover{
+    text-decoration:underline;
+}

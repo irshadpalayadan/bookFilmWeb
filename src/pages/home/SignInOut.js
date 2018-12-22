@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Glyphicon, Button } from 'react-bootstrap';
 import loginService from '../../api/loginService';
 
-import './css/signin.css'
+import './css/signinout.css'
 
 var md5 = require('md5');
 
@@ -24,7 +24,17 @@ class Signin extends Component {
 
 
     _submitSignin = () => {
-        loginService.login(this.state.username, md5(this.state.password));
+        
+        console.log(" Signin " + this.props)
+        loginService.login(this.state.username, md5(this.state.password))
+        .then((res) => res.json() )
+        .then((jsonRes) => {
+            if(jsonRes.signin === 'success') {
+                this.props.loginHandle({signin: true});
+            } else {
+                this.setState({username: '', password: ''})
+            }
+        });
     }
 
 
@@ -53,15 +63,15 @@ class Signin extends Component {
                                 TODO : handle forgot password
                                 <a href="#">Forgot password? </a>
                             */}
-						    <a >Forgot password? </a>
+						    <span className='anchorLikeSpan' >Forgot password? </span>
 					    </div>
-                        <Button onClick={this._submitSignin}> Login </Button>
+                        <Button onClick={() => this._submitSignin()}> Login </Button>
                         <div className="haveAnAccount">
                             {/*
                                 TODO : create a router to the login page
                                 <a href="#">New User? </a>
                             */}
-						    <a onClick={ () => _sideBoxStateHandler('signup') } > New User? </a>
+						    <span className='anchorLikeSpan' onClick={ () => _sideBoxStateHandler('signup') } > New User? </span>
 					    </div>
                     </form>
                 </div>
@@ -93,7 +103,19 @@ class Signup extends Component {
 
 
     _submitSignup = () => {
-        loginService.signup(this.state.username, this.state.email, this.state.phno, md5(this.state.password));
+        loginService.signup(this.state.username, this.state.email, this.state.phno, md5(this.state.password))
+        .then((res) => res.json())
+        .then((jsonRes) => {
+            if(jsonRes.signup === 'success') {
+                this.props.loginHandle({signin: true});
+            } else {
+                /*
+                    TODO : add error messsage in the signup form
+                */
+               console.error('signup failed');
+            }
+        });
+
     }
 
 
@@ -140,7 +162,7 @@ class Signup extends Component {
                                 TODO : create a router to the login page
                                 <a href="#">Forgot password? </a>
                             */}
-						    <a onClick={ () => _sideBoxStateHandler('signin') } >Have an account? </a>
+						    <span className='anchorLikeSpan' onClick={ () => _sideBoxStateHandler('signin') } > Have an account? </span>
 					    </div>
                     </form>
                 </div>
@@ -165,13 +187,15 @@ class SignInOutDash extends Component{
     }
 
 
+
+
     render() {
+        console.log(" SignInOutDash " + this.props.loginHandler)
         return(
             <div>
                 <div className='loginSideBox'>
-                { this.state.rightSideBox === 'signin' && <Signin sideBoxStateHandler={this._updateSideBoxState}/> }
-                { this.state.rightSideBox === 'signup' && <Signup sideBoxStateHandler={this._updateSideBoxState}/> }
-
+                { this.state.rightSideBox === 'signin' && <Signin loginHandle={this.props.loginHandler} sideBoxStateHandler={this._updateSideBoxState}/> }
+                { this.state.rightSideBox === 'signup' && <Signup loginHandle={this.props.loginHandler} sideBoxStateHandler={this._updateSideBoxState}/> }
                 </div>
             </div>
             
