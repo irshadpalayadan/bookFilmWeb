@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Glyphicon, Button } from 'react-bootstrap';
 import loginService from '../../api/loginService';
 
-import './css/signinout.css'
+import '../css/signinout.css'
 
 var md5 = require('md5');
 
@@ -22,20 +22,29 @@ class Signin extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    _googleSignIn = () => {
+        loginService.google()
+        /*.then(res => res.json())
+        .then( (resJson) => {
+            console.log(resJson)
+        });*/
+    }
+
 
     _submitSignin = () => {
         
-        console.log(" Signin " + this.props)
         loginService.login(this.state.username, md5(this.state.password))
         .then((res) => res.json() )
         .then((jsonRes) => {
             if(jsonRes.signin === 'success') {
                 this.props.loginHandle({signin: true});
+                window.location = jsonRes.redirectUrl;
             } else {
                 this.setState({username: '', password: ''})
             }
-        });
-    }
+        })
+        .catch(console.error);
+    } 
 
 
     render() {
@@ -66,7 +75,12 @@ class Signin extends Component {
 						    <span className='anchorLikeSpan' >Forgot password? </span>
 					    </div>
                         <Button onClick={() => this._submitSignin()}> Login </Button>
-                        <div className="haveAnAccount">
+                        <br></br>
+                        <div className='googleSignDiv' onClick={this._googleSignIn}>
+                            <span className='googleSignImg'></span>
+                            <span className='googleSignText'> SignIn With Google</span>
+                        </div>
+                        <div className="newUserLink">
                             {/*
                                 TODO : create a router to the login page
                                 <a href="#">New User? </a>
@@ -108,6 +122,7 @@ class Signup extends Component {
         .then((jsonRes) => {
             if(jsonRes.signup === 'success') {
                 this.props.loginHandle({signin: true});
+                window.location = jsonRes.redirectUrl;
             } else {
                 /*
                     TODO : add error messsage in the signup form
@@ -190,7 +205,6 @@ class SignInOutDash extends Component{
 
 
     render() {
-        console.log(" SignInOutDash " + this.props.loginHandler)
         return(
             <div>
                 <div className='loginSideBox'>
