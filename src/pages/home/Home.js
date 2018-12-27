@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import NavbarLogout from './navbar_logout';
-import NavbarLogin from './navbar_login';
 import Footer from './footer';
 import SignInOut from './SignInOut';
+import loginService from '../../api/loginService';
 
 
 
@@ -11,26 +11,36 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            // TODO : need a function to check user is active or not ... update value before render
-            isUserActive : false,
+            isSignInCheckDone : false
         }
     }
 
-    _userLogged( state ) {
-        if(state.signin === true) {
-            this.setState({isUserActive : true})
-        }
+    componentDidMount() {
+        loginService.checkSignInStatus()
+        .then( res => res.json() )
+        .then( resJson => {
+            if(resJson.status === 'success') {
+                window.location = resJson.redirectUrl;  
+            } else {
+                this.setState( {isSignInCheckDone : true} );
+            }
+        })
     }
+
 
     render() {
         return(
-            <div>
-               { this.state.isUserActive ? <NavbarLogin/> : <NavbarLogout/> }
-               <div className="container" style={{paddingTop: '50px', width: '100%'}}>
-                {  !this.state.isUserActive && <SignInOut loginHandler={this._userLogged.bind(this)}/>  }
-                </div>
-               <Footer/>
-            </div>
+            <>
+            { this.state.isSignInCheckDone && 
+                <div>
+                    <NavbarLogout/>
+                    <div className="container" style={{paddingTop: '50px', width: '100%'}}>
+                        <SignInOut />
+                    </div>
+                <Footer/>
+                </div> 
+            }
+            </>
         );
     }
 }

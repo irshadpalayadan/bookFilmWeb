@@ -22,23 +22,15 @@ class Signin extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    _googleSignIn = () => {
-        loginService.google()
-        /*.then(res => res.json())
-        .then( (resJson) => {
-            console.log(resJson)
-        });*/
-    }
-
+  
 
     _submitSignin = () => {
         
         loginService.login(this.state.username, md5(this.state.password))
         .then((res) => res.json() )
-        .then((jsonRes) => {
-            if(jsonRes.signin === 'success') {
-                this.props.loginHandle({signin: true});
-                window.location = jsonRes.redirectUrl;
+        .then((resJson) => {
+            if(resJson.signin === 'success') {
+                window.location = resJson.redirectUrl;
             } else {
                 this.setState({username: '', password: ''})
             }
@@ -76,10 +68,10 @@ class Signin extends Component {
 					    </div>
                         <Button onClick={() => this._submitSignin()}> Login </Button>
                         <br></br>
-                        <div className='googleSignDiv' onClick={this._googleSignIn}>
+                        <a className='googleSignDiv' href={loginService.google}>
                             <span className='googleSignImg'></span>
                             <span className='googleSignText'> SignIn With Google</span>
-                        </div>
+                        </a>
                         <div className="newUserLink">
                             {/*
                                 TODO : create a router to the login page
@@ -119,10 +111,9 @@ class Signup extends Component {
     _submitSignup = () => {
         loginService.signup(this.state.username, this.state.email, this.state.phno, md5(this.state.password))
         .then((res) => res.json())
-        .then((jsonRes) => {
-            if(jsonRes.signup === 'success') {
-                this.props.loginHandle({signin: true});
-                window.location = jsonRes.redirectUrl;
+        .then((resJson) => {
+            if(resJson.signup === 'success') {
+                window.location = resJson.redirectUrl;
             } else {
                 /*
                     TODO : add error messsage in the signup form
@@ -197,19 +188,19 @@ class SignInOutDash extends Component{
         }
     }
 
+
+
     _updateSideBoxState = ( boxName ) => {
         this.setState({rightSideBox: boxName});
     }
-
-
 
 
     render() {
         return(
             <div>
                 <div className='loginSideBox'>
-                { this.state.rightSideBox === 'signin' && <Signin loginHandle={this.props.loginHandler} sideBoxStateHandler={this._updateSideBoxState}/> }
-                { this.state.rightSideBox === 'signup' && <Signup loginHandle={this.props.loginHandler} sideBoxStateHandler={this._updateSideBoxState}/> }
+                { this.state.rightSideBox === 'signin' && <Signin sideBoxStateHandler={this._updateSideBoxState}/> }
+                { this.state.rightSideBox === 'signup' && <Signup sideBoxStateHandler={this._updateSideBoxState}/> }
                 </div>
             </div>
             
