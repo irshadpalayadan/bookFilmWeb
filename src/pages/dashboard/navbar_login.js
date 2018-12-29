@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, MenuItem, Button, FormGroup, FormControl} from 'react-bootstrap';
-
+import loginService from '../../api/loginService'
 class NavbarLogin extends Component {
+
+    _submitSignOut() {
+        loginService.signout()
+        .then( res => res.json())
+        .then((resJson) => {
+            if(resJson.status === 'success') {
+                window.location = resJson.redirectUrl;
+            } else {
+                window.location = '/'
+            }
+        })
+    }
 
     render() {
         return(
@@ -19,7 +31,7 @@ class NavbarLogin extends Component {
                             <MenuItem eventKey={3.2}>Booking History</MenuItem>
                             <MenuItem eventKey={3.3}>Something else here</MenuItem>
                             <MenuItem divider />
-                            <MenuItem eventKey={3.3}>Separated link</MenuItem>
+                            <MenuItem eventKey={3.3} onClick={this._submitSignOut}>SignOut</MenuItem>
                         </NavDropdown>
                     </Nav>
                     <Navbar.Form pullRight>

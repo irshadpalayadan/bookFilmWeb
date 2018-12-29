@@ -26,7 +26,7 @@ class Signin extends Component {
 
     _submitSignin = () => {
         
-        loginService.login(this.state.username, md5(this.state.password))
+        loginService.signin(this.state.username, md5(this.state.password))
         .then((res) => res.json() )
         .then((resJson) => {
             if(resJson.signin === 'success') {
