@@ -1,0 +1,70 @@
+.navbarUserThumbDiv {
+    margin-top: -5px;
+}
+
+.navbarUserThumb {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+
+.navbarProfContainer {
+    width: 300px;
+    margin-top: 20px;
+    white-space: nowrap;
+    height: 90px;
+}
+
+.navbarProfImgDiv{
+    position: relative;
+    margin-right: 20px;
+    overflow: hidden;
+    float: left;
+}
+
+
+.navbarProfImg{
+    background-size: 80px 80px;
+    border: none;
+    height: 80px;
+    width: 80px;
+    display: block;
+}
+
+
+.navbarProfImgChange{
+    background: rgba(0,0,0,.54);
+    bottom: 0;
+    color: #fff;
+    font-size: 9px;
+    font-weight: bold;
+    left: 0;
+    line-height: 9px;
+    position: absolute;
+    padding: 7px 0;
+    text-align: center;
+    width: 80px;
+}
+
+.navbarProfDetailDiv {
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.navbarProfDetailName {
+    font-weight: bold;
+    width: 180px;
+    margin: -4px 0 1px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.navbarProfDetailEmail {
+    color: #666;
+    width: 180px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+

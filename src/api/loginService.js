@@ -8,6 +8,9 @@ const loginService = {
     checkSignInStatus: function() {
         return fetch('http://localhost:5000/api/auth/signinstatus', {method: 'GET', credentials:'include'});
     },
+    getUserProfile: function() {
+        return fetch('http://localhost:5000/api/auth/userprofile', {method: 'GET', credentials:'include'});
+    },
     signout: function() {
         return fetch('http://localhost:5000/api/auth/signout', {method: 'GET', credentials:'include'});
     },

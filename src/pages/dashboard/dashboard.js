@@ -13,14 +13,21 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        loginService.checkSignInStatus()
+        loginService.getUserProfile()
         .then( res => res.json() )
         .then( resJson => {
             if(resJson.status === 'success') {
-                this.setState( {isSignInCheckDone : true});
-                
+                this.setState({
+                                isSignInCheckDone : true,
+                                profile: {
+                                            name: resJson.name,
+                                            email: resJson.email,
+                                            imgUrl : resJson.img.value,
+                                            imgType : resJson.img.type
+                                         }
+                             });                
             } else {
-                //window.location = resJson.redirectUrl;  
+                window.location = resJson.redirectUrl;  
             }
         })
     }
@@ -33,9 +40,9 @@ class Dashboard extends Component {
 
         return(
             <div>
-               <NavbarLogin/>
+               <NavbarLogin profile={this.state.profile}/>
                <div className="container" style={{paddingTop: '50px', width: '100%'}}>
-                    hello Irshad
+                    Hello {this.state.profile.name}
                 </div>
                <Footer/>
             </div>
